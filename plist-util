@@ -1,0 +1,40 @@
+#!/bin/bash
+
+
+menu_fun(){
+clear
+echo -e ""
+echo -e "    Apple plist 加解密"
+echo -e ""
+echo -e "    拖放檔案到這裡"
+echo -e ""
+read IN
+[[ "$IN" ]]
+
+if [ "$IN" == "" ]; then
+    exit
+fi
+
+SRC=$(echo "$IN" | sed "s/'//g")
+
+FILE_NAME=$(basename "$IN")
+
+echo -e ""
+echo -e "    選擇保存目錄"
+echo -e ""
+echo -e "    拖放目錄到這裡"
+echo -e ""
+read OUT
+[[ "$OUT" ]]
+
+if [ "$OUT" == "" ]; then
+    exit
+fi
+
+DST=$(echo "$OUT" | sed "s/'//g")
+
+plistutil -i "$SRC" -o "$DST"/"$FILE_NAME"
+
+}
+
+menu_fun
